@@ -7,6 +7,8 @@ const swaggerDocument = require('./utils/swaggerApi.json');
 
 const customErrorMessage = require('./utils/customErrorsMessages');
 
+const usersRouter = require('./routes/usersRouter')
+
 const { DEV_ENV } = process.env;
 
 const app = express();
@@ -18,6 +20,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.use('/api/users', usersRouter);
 
 app.get('/api', (req, res) => {
   res.send(
