@@ -1,37 +1,43 @@
 const { User } = require('../db/usersModel');
-const { catchAsyncWrapper } = require('../utils');
+const { catchAsyncWrapper, paginationData } = require('../utils');
 
 // const getUsers = async (skip, limit) => {
-const getUsers = async () => {
-  //   const result = await Users.find({
-  //     _id: favorites,
-  //   })
-  //     .sort({ title: 1 })
-  //     .skip(skip)
-  //     .limit(limit);
-  const result = await User.find({}).sort({ followers: 1 });
+const getUsers = async ({ skip, limit }) => {
+  const result = await User.find({})
+    .sort({ title: 1 })
+    .skip(skip)
+    .limit(limit)
+    .sort({ followers: -1 });
+  // const result = await User.find({}).sort({ followers: 1 });
   return result;
 };
 
 const getUsersController = catchAsyncWrapper(async (req, res) => {
-  const { page = 1 } = req.body;
+  const { page } = req.params;
+  const pagination = await paginationData(page);
+  console.log('CL: ~ file: getUsersController.js:18 ~ pagination:', pagination);
+  const { totalUsers, currentPage, pages, skip, limit } = pagination;
 
-  //   const paginationData = await favoritesPagination(userId, page);
-
-  //   const { totalFavorites, currentPage, skip, limit } = paginationData;
-
-  //   const returnedPage = Number(currentPage);
-
-  //   const users = await getUsers(skip, limit);
-
-  const users = await getUsers();
+  const users = await getUsers({ skip, limit });
 
   //   res.status(200).json({
   //     totalFavorites,
   //     returnedPage,
   //     favoriteRecipes,
   //   });
+  // console.log(
+  //   '~totalUsers, currentPage, skip, limit getUsersController.js [33]:',
+  //   totalUsers,
+  //   currentPage,
+  //   pages,
+  //   skip,
+  //   limit
+  // );
+
   res.status(200).json({
+    totalUsers,
+    currentPage,
+    pages,
     users,
   });
 });

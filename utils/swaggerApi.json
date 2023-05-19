@@ -11,9 +11,21 @@
     }
   ],
   "paths": {
-    "/api/users": {
+    "/api/users/{page}": {
       "get": {
-        "summary": "Get info of loginned user by token",
+        "summary": "Get info of logged-in user by token",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "description": "page",
+            "schema": {
+              "type": "string",
+              "example": 2
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -69,10 +81,24 @@
             }
           }
         }
-      },
+      }
+    },
+    "/api/users/{userId}": {
       "patch": {
         "summary": "Update existed user",
         "description": "Update name and/or avatar",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "recipe id",
+            "schema": {
+              "type": "string",
+              "example": "640cd5ac2d9fecf12e8897f0"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -81,7 +107,7 @@
               },
               "example": {
                 "name": "newName",
-                "email": "Jimmy2updated@email.com"
+                "email": "example@example.com"
               }
             }
           }
@@ -145,11 +171,7 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "required": [
-              "false",
-              "Set name of user"
-            ]
+            "type": "string"
           },
           "avatar": {
             "type": "string",

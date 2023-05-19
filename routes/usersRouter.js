@@ -6,6 +6,6 @@ const router = express.Router();
 
 // router.patch('/', updateValidateMiddleware);
 
-router.get('/', getUsersController);
+router.get('/:page', getUsersController);
 
 module.exports = router;
