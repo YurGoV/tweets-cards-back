@@ -83,7 +83,7 @@
         }
       }
     },
-    "/api/users/{userId}": {
+    "/api/users/update/{userId}": {
       "patch": {
         "summary": "Update existed user",
         "description": "Update name and/or avatar",
@@ -100,14 +100,14 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/User"
               },
               "example": {
-                "name": "newName",
-                "email": "example@example.com"
+                "followed": true
               }
             }
           }
@@ -170,12 +170,20 @@
       "User": {
         "type": "object",
         "properties": {
-          "name": {
+          "user": {
             "type": "string"
           },
+          "tweets": {
+            "type": "number"
+          },
           "avatar": {
-            "type": "string",
-            "format": "binary"
+            "type": "string"
+          },
+          "followers": {
+            "type": "number"
+          },
+          "followed": {
+            "type": "boolean"
           }
         }
       }
