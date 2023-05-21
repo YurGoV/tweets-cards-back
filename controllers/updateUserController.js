@@ -1,7 +1,7 @@
 const { User } = require('../db/usersModel');
 const { catchAsyncWrapper } = require('../utils');
 
-const updateUserController = catchAsyncWrapper(async (req, res, next) => {
+const updateUserController = catchAsyncWrapper(async (req, res) => {
   const { userId } = req.params;
   const { followed } = req.body;
 

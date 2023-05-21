@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { catchAsyncWrapper, CustomError } = require('../utils');
+const { CustomError } = require('../utils');
 
 const joiUpdateUserSchema = (data) =>
   Joi.object({
