@@ -17,16 +17,18 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(logger(formatsLogger));
 
-const corsOptions = {
-  origin: ['http://localhost:3000', 'https://tweets.yurgo.fun', 'https://yurgov.github.io'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-};
-app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://tweets.yurgo.fun');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  next();
-});
+// const corsOptions = {
+//   origin: ['http://localhost:3000', 'https://tweets.yurgo.fun', 'https://yurgov.github.io'],
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+// };
+// app.use(cors(corsOptions));
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'https://tweets.yurgo.fun');
+//   res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+//   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+//   next();
+// });
+app.use(cors());
 app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
