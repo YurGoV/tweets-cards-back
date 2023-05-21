@@ -19,7 +19,7 @@ app.use(logger(formatsLogger));
 
 const corsOptions = {
   origin: ['http://localhost:3000', 'https://tweets.yurgo.fun', 'https://yurgov.github.io'],
-  methods: 'GET,POST,PUT,DELETE,OPTIONS',
+  methods: ['GET,POST,PUT,DELETE,OPTIONS'],
 };
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
