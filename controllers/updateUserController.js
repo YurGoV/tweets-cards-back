@@ -7,14 +7,15 @@ const updateUserController = catchAsyncWrapper(async (req, res) => {
 
   const user = await User.findById(userId);
 
-  if (!user){
+  if (!user) {
     return res.status(404).json({
-      message: 'there no user in db'
-    });}
+      message: 'there no user in db',
+    });
+  }
 
-  if (user.followed === followed){
+  if (user.followed === followed) {
     return res.status(400).json({
-      message: 'there are nothing to update'
+      message: 'there are nothing to update',
     });
   }
 
