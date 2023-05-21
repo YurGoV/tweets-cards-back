@@ -2,12 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./utils/swaggerApi.json');
 
-const customErrorMessage = require('./utils/customErrorsMessages');
-
-const usersRouter = require('./routes/usersRouter')
+const usersRouter = require('./routes/usersRouter');
 
 const { DEV_ENV } = process.env;
 
@@ -17,29 +13,10 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(logger(formatsLogger));
 
-// const corsOptions = {
-//   origin: ['http://localhost:3000', 'https://tweets.yurgo.fun', 'https://yurgov.github.io'],
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-// };
-// app.use(cors(corsOptions));
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'https://tweets.yurgo.fun');
-//   res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-//   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-//   next();
-// });
 app.use(cors());
 app.use(express.json());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 app.use('/api/users', usersRouter);
-
-app.get('/api', (req, res) => {
-  res.send(
-    'Hello World! This is the first response from TWEETS backend :-)'
-  );
-});
 
 app.all('*', (req, res) => {
   res.status(404).json({
@@ -47,17 +24,13 @@ app.all('*', (req, res) => {
   });
 });
 
-/**
- * * Global error handler (middleware)
- */
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  const { status } = err; // there we get error status
+  const { status } = err;
 
   if (DEV_ENV === 'development') {
-    const { status: customStatus, message } = customErrorMessage(err.message);
-    res.status(customStatus || 500).json({
-      message,
+    res.status(status || 500).json({
+      message: err.message,
       stack: err.stack,
     });
   } else {

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-// const { User } = require('../db/usersModel');
+
 const { JWT_SECRET } = process.env;
 
 const authMiddleware = (req, res, next) => {

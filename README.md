@@ -1,1 +1,1 @@
-# tweets-cards-back
+Цей додаток створено на Node.js/express/MongoDB та задеплоєно на орендований Ubuntu-сервер на Digital Ocean.

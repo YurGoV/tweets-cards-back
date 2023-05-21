@@ -4,8 +4,6 @@ const paginationData = async (page = 1) => {
   const totalUsers = await User.countDocuments({});
 
   const limit = 3;
-  // let currentPage = 1;
-  // let lastPage = null;
 
   const lastPage = Math.ceil(totalUsers / limit);
   const currentPage = page > lastPage ? lastPage : page;
